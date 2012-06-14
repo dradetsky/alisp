@@ -3,7 +3,7 @@
 
 ;; (in-package :redef)
 
-use-package
+(use-package :sb-mop)
 
 (defmacro def (name expr &rest body)
   (if (null body)
