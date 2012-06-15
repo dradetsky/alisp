@@ -22,7 +22,17 @@
                                      `((,slot-name :initarg ,slot-keyword :accessor ,slot-keyword)))) slots)))
     `(defclass ,name ,super ,processed-slots)))
 
+(set-macro-character #\[
+         (lambda (stream char)
+           (let ((args (read-delimited-list #\] stream t)))
+             `(reference ,@args))))
 
+(set-macro-character #\]
+         (get-macro-character #\)))
+
+;; TODO: add for lists, hashes, mebbe bits of ints, etc.
+(def reference ((r standard-object) s)
+  (slot-value r s))
 
 (def obj ((kls symbol) &rest args)
   (apply #'obj (find-class kls) args))
@@ -42,5 +52,5 @@
 
 (def d (obj 'cc 3 2))
 
-
+(def e [d 'x])
 
