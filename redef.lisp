@@ -3,8 +3,6 @@
 
 (in-package :redef)
 
-;(use-package :sb-mop)
-
 (defun sym->kwd (s)
   (values (intern (string-upcase (symbol-name s))
                   "KEYWORD")))
